@@ -39,7 +39,7 @@ block content
             i.icon-shopping-cart
             |  Add To Bag
 
-      script(type='text/javascript')
+      script(type='text/javascript').
         $('#item-#{item.id}').toggle(function() {
           $.ajax({
             type: 'post',
@@ -83,7 +83,7 @@ block content
             i.icon-shopping-cart
             |  Add To Bag
 
-          script(src='text/javascript')
+          script(src='text/javascript').
             $('#item-#{item.id}').toggle(function() {
               $('#bagcount').text(parseInt($('#bagcount').text()) + 1);
               toastr.success('An item has been added to your bag.');

@@ -25,8 +25,9 @@ app.configure(function(){
   app.use(express.cookieParser('jsrocks'));
   app.use(express.session({ secret: 'jsrocks' }));
   app.use(app.router);
-  app.use(require('less-middleware')({ src: __dirname + '//public' }));
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use(require('less-middleware')({ src: __dirname + '//public' }));
+  
 });
 
 app.configure('development', function(){
@@ -109,7 +110,7 @@ app.get('/results', function(req, res) {
   var sortPrice = req.query.price;
 
 
-  console.log(type, category, store_array);
+  console.log("ELVIN " + type, category, store_array);
   // when a single store is selected, it is passed a string
   if (typeof store_array === 'string') {
     var temp = store_array;
@@ -199,6 +200,7 @@ app.get('/results', function(req, res) {
     },
     function handm(callback) {
       if (_.contains(store_array, 'handm')) {
+        console.log("ELVIN handm ");
         jsdom.env({
           html: stores.handm[type][category],
           scripts: ["http://code.jquery.com/jquery.js"],
@@ -207,6 +209,7 @@ app.get('/results', function(req, res) {
             var items = [];
             $('#list-products > li').each(function(index, productElement) {
               if (index > 1) {
+                console.log("ELVIN there must be at least one product ");
                 var product = {
                   id: 'handm_' + index,
                   url: $('span.details', productElement).parent().attr('href'),
@@ -305,7 +308,7 @@ app.get('/search', function(req, res) {
   var sortPrice = req.query.price;
 
   var search_query = req.query.q;
-  console.log(search_query);
+  console.log("ELVIN search " + search_query);
 
   if (typeof store_array === 'string') {
     var temp = store_array;
@@ -351,6 +354,9 @@ app.get('/search', function(req, res) {
       }
     },
     function handm(callback) {
+
+      console.log("function handm ");
+
       if (_.contains(store_array, 'handm')) {
         var searchUrl;
 
@@ -433,6 +439,8 @@ app.get('/search', function(req, res) {
           searchUrl = "http://www.hm.com/us/subdepartment/LADIES?Nr=4294956943";
         }
 
+        console.log("searchUrl : " + searchUrl);
+
         jsdom.env({
           html: searchUrl,
           scripts: ['http://code.jquery.com/jquery.js'],
@@ -466,6 +474,7 @@ app.get('/search', function(req, res) {
       }
     },
     function uniqlo(callback) {
+       console.log('ELVIN uniqlo');
       if (_.contains(store_array, 'uniqlo')) {
         jsdom.env({
           html: 'http://www.uniqlo.com/us/mens-clothing/mens-tops/mens-sweatshirts-and-fleece',
@@ -515,7 +524,7 @@ app.get('/search', function(req, res) {
         var gilt_api_key = '0fabb99b24a4ffbf826c077c3008859b';
         var search_query = encodeURIComponent(req.query.q);
         var search_query = search_query.split(' ')[0];
-        console.log(search_query);
+        console.log("ELVIN guilt " + search_query);
         var gilt_search_url = base_url + 'products/josql' + api_param + gilt_api_key + "&q=name%20LIKE%20'%25" + search_query + "%25'";
         console.log(gilt_search_url);
 
